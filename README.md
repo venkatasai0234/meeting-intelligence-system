@@ -216,25 +216,6 @@ This project demonstrates:
 * Production-style architecture
 * Real-world use case (meeting intelligence systems like Otter.ai)
 
----
-
-## 📸 Demo (Optional but Recommended)
-
-Add screenshots of:
-
-* Streamlit UI
-* FastAPI `/docs` page
-
-Example:
-
-```
-## 📸 Demo
-
-![UI Screenshot](screenshots/ui.png)
-```
-
----
-
 ## 👨‍💻 Author
 
 **Venkata Siva Sai Krishna Prasad Yedupati**
