@@ -11,6 +11,7 @@ from src.preprocess import (
 from src.topics import segment_topics
 from src.search import load_embedding_model, semantic_search
 from src.output_formatter import build_meeting_output
+from src.summary import generate_meeting_summary
 
 
 app = FastAPI(title="Meeting Intelligence API", version="1.0.0")
@@ -32,8 +33,14 @@ def run_pipeline(transcript: str, query: str) -> dict:
     decisions = extract_decisions(records)
     topics = segment_topics(records)
     search_results = semantic_search(query, records, model, top_k=3)
+    summary = generate_meeting_summary(
+        action_items=action_items,
+        decisions=decisions,
+        topics=topics,
+    )
 
     output = build_meeting_output(
+        summary=summary,
         action_items=action_items,
         decisions=decisions,
         topics=topics,

@@ -4,6 +4,7 @@ from typing import Dict, List
 
 
 def build_meeting_output(
+    summary: Dict,
     action_items: List[Dict],
     decisions: List[Dict],
     topics: List[Dict],
@@ -13,6 +14,7 @@ def build_meeting_output(
     Combine extracted meeting intelligence into one structured dictionary.
     """
     return {
+        "summary": summary,
         "action_items": action_items,
         "decisions": decisions,
         "topics": topics,

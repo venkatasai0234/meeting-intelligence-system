@@ -1,4 +1,17 @@
 {
+    "summary": {
+        "overview": "The meeting focused on proposal, client_review, pricing, meeting_schedule, demo, and budget.",
+        "key_decisions": [
+            "We decided to schedule a client review next Tuesday.",
+            "The team agreed to delay the product demo until Thursday.",
+            "It was finalized that I will prepare the budget summary."
+        ],
+        "key_action_items": [
+            "John: We should send the updated proposal by Friday.",
+            "Sarah: I will take ownership of that.",
+            "Sarah: I will send the revised deck tomorrow."
+        ]
+    },
     "action_items": [
         {
             "speaker": "John",
@@ -119,18 +132,18 @@
     "search_results": [
         {
             "speaker": "John",
+            "text": "The team agreed to delay the product demo until Thursday.",
+            "score": 0.707344138622284
+        },
+        {
+            "speaker": "John",
             "text": "We need to finalize the budget before the demo.",
             "score": 0.5999665260314941
         },
         {
-            "speaker": "John",
-            "text": "The team agreed to delay the product demo until Thursday.",
-            "score": 0.5573441386222839
-        },
-        {
             "speaker": "Sarah",
             "text": "It was finalized that I will prepare the budget summary.",
-            "score": 0.2852994203567505
+            "score": 0.4352994203567505
         }
     ]
 }

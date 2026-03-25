@@ -1,10 +1,8 @@
 import sys
 import os
+from io import StringIO
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
-import json
-from io import StringIO
 
 import streamlit as st
 
@@ -18,6 +16,7 @@ from src.preprocess import (
 from src.topics import segment_topics
 from src.search import load_embedding_model, semantic_search
 from src.output_formatter import build_meeting_output
+from src.summary import generate_meeting_summary
 
 
 st.set_page_config(page_title="Meeting Intelligence System", layout="wide")
@@ -37,8 +36,14 @@ def run_pipeline(transcript: str, query: str) -> dict:
     decisions = extract_decisions(records)
     topics = segment_topics(records)
     search_results = semantic_search(query, records, model, top_k=3)
+    summary = generate_meeting_summary(
+        action_items=action_items,
+        decisions=decisions,
+        topics=topics,
+    )
 
     return build_meeting_output(
+        summary=summary,
         action_items=action_items,
         decisions=decisions,
         topics=topics,
@@ -60,6 +65,9 @@ if uploaded_file is not None:
             output = run_pipeline(transcript, query)
 
         st.success("Analysis complete")
+
+        st.subheader("Summary")
+        st.json(output["summary"])
 
         st.subheader("Action Items")
         if output["action_items"]:
