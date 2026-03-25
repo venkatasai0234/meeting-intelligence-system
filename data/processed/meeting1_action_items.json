@@ -1,0 +1,22 @@
+[
+    {
+        "speaker": "John",
+        "text": "We should send the updated proposal by Friday."
+    },
+    {
+        "speaker": "Sarah",
+        "text": "I will take ownership of that."
+    },
+    {
+        "speaker": "Sarah",
+        "text": "I will send the revised deck tomorrow."
+    },
+    {
+        "speaker": "Mike",
+        "text": "Let's schedule the next meeting for Monday."
+    },
+    {
+        "speaker": "Sarah",
+        "text": "It was finalized that I will prepare the budget summary."
+    }
+]

@@ -1,6 +1,6 @@
 import re
 from pathlib import Path
-from typing import List
+from typing import Dict, List
 
 
 def load_transcript(file_path: str) -> str:
@@ -42,7 +42,36 @@ def split_transcript_lines(text: str) -> List[str]:
     return [line for line in lines if line]
 
 
-def extract_action_items(lines: List[str]) -> List[str]:
+def parse_speaker_line(line: str) -> Dict[str, str]:
+    """
+    Parse a transcript line into speaker and text.
+
+    Example:
+    'Sarah: I will send the revised deck tomorrow.'
+    ->
+    {'speaker': 'Sarah', 'text': 'I will send the revised deck tomorrow.'}
+    """
+    if ":" in line:
+        speaker, text = line.split(":", 1)
+        return {
+            "speaker": speaker.strip(),
+            "text": text.strip(),
+        }
+
+    return {
+        "speaker": "Unknown",
+        "text": line.strip(),
+    }
+
+
+def parse_transcript_lines(lines: List[str]) -> List[Dict[str, str]]:
+    """
+    Convert raw transcript lines into structured speaker-text records.
+    """
+    return [parse_speaker_line(line) for line in lines]
+
+
+def extract_action_items(records: List[Dict[str, str]]) -> List[Dict[str, str]]:
     """
     Simple rule-based baseline for action item extraction.
     """
@@ -58,15 +87,15 @@ def extract_action_items(lines: List[str]) -> List[str]:
 
     action_items = []
 
-    for line in lines:
-        lowered_line = line.lower()
-        if any(re.search(pattern, lowered_line) for pattern in action_patterns):
-            action_items.append(line)
+    for record in records:
+        lowered_text = record["text"].lower()
+        if any(re.search(pattern, lowered_text) for pattern in action_patterns):
+            action_items.append(record)
 
     return action_items
 
 
-def extract_decisions(lines: List[str]) -> List[str]:
+def extract_decisions(records: List[Dict[str, str]]) -> List[Dict[str, str]]:
     """
     Simple rule-based baseline for decision extraction.
     """
@@ -81,9 +110,9 @@ def extract_decisions(lines: List[str]) -> List[str]:
 
     decisions = []
 
-    for line in lines:
-        lowered_line = line.lower()
-        if any(re.search(pattern, lowered_line) for pattern in decision_patterns):
-            decisions.append(line)
+    for record in records:
+        lowered_text = record["text"].lower()
+        if any(re.search(pattern, lowered_text) for pattern in decision_patterns):
+            decisions.append(record)
 
     return decisions
