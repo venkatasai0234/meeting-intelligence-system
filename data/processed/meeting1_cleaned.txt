@@ -6,3 +6,5 @@ Sarah: I will send the revised deck tomorrow.
 Mike: Let's schedule the next meeting for Monday.
 John: The team agreed to delay the product demo until Thursday.
 Sarah: It was finalized that I will prepare the budget summary.
+Mike: The client asked for a pricing clarification.
+John: We need to finalize the budget before the demo.

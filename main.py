@@ -9,6 +9,7 @@ from src.preprocess import (
 )
 from src.action_items import save_action_items
 from src.decisions import save_decisions
+from src.topics import segment_topics, save_topics
 
 
 def main() -> None:
@@ -16,6 +17,7 @@ def main() -> None:
     cleaned_output_file = "data/processed/meeting1_cleaned.txt"
     action_items_output_file = "data/processed/meeting1_action_items.json"
     decisions_output_file = "data/processed/meeting1_decisions.json"
+    topics_output_file = "data/processed/meeting1_topics.json"
 
     transcript = load_transcript(input_file)
     cleaned_transcript = clean_text(transcript)
@@ -26,9 +28,11 @@ def main() -> None:
 
     action_items = extract_action_items(records)
     decisions = extract_decisions(records)
+    topics = segment_topics(records)
 
     save_action_items(action_items, action_items_output_file)
     save_decisions(decisions, decisions_output_file)
+    save_topics(topics, topics_output_file)
 
     print("Structured Transcript Records:\n")
     for idx, record in enumerate(records, start=1):
@@ -54,9 +58,20 @@ def main() -> None:
         print("No decisions found.")
 
     print("\n" + "=" * 60)
+    print("Topic Segments:\n")
+    if topics:
+        for idx, topic_group in enumerate(topics, start=1):
+            print(f"{idx}. Topic: {topic_group['topic']}")
+            for item in topic_group["items"]:
+                print(f"   - {item['speaker']}: {item['text']}")
+    else:
+        print("No topics found.")
+
+    print("\n" + "=" * 60)
     print(f"Cleaned transcript saved to: {cleaned_output_file}")
     print(f"Action items saved to: {action_items_output_file}")
     print(f"Decisions saved to: {decisions_output_file}")
+    print(f"Topics saved to: {topics_output_file}")
 
 
 if __name__ == "__main__":

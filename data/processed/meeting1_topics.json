@@ -1,0 +1,77 @@
+[
+    {
+        "topic": "proposal",
+        "items": [
+            {
+                "speaker": "John",
+                "text": "We should send the updated proposal by Friday."
+            },
+            {
+                "speaker": "Sarah",
+                "text": "I will send the revised deck tomorrow."
+            }
+        ]
+    },
+    {
+        "topic": "general",
+        "items": [
+            {
+                "speaker": "Sarah",
+                "text": "I will take ownership of that."
+            }
+        ]
+    },
+    {
+        "topic": "client_review",
+        "items": [
+            {
+                "speaker": "Mike",
+                "text": "We decided to schedule a client review next Tuesday."
+            },
+            {
+                "speaker": "Mike",
+                "text": "The client asked for a pricing clarification."
+            }
+        ]
+    },
+    {
+        "topic": "pricing",
+        "items": [
+            {
+                "speaker": "John",
+                "text": "The pricing section is still a blocker."
+            }
+        ]
+    },
+    {
+        "topic": "meeting_schedule",
+        "items": [
+            {
+                "speaker": "Mike",
+                "text": "Let's schedule the next meeting for Monday."
+            }
+        ]
+    },
+    {
+        "topic": "demo",
+        "items": [
+            {
+                "speaker": "John",
+                "text": "The team agreed to delay the product demo until Thursday."
+            }
+        ]
+    },
+    {
+        "topic": "budget",
+        "items": [
+            {
+                "speaker": "Sarah",
+                "text": "It was finalized that I will prepare the budget summary."
+            },
+            {
+                "speaker": "John",
+                "text": "We need to finalize the budget before the demo."
+            }
+        ]
+    }
+]

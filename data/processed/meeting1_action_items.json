@@ -18,5 +18,9 @@
     {
         "speaker": "Sarah",
         "text": "It was finalized that I will prepare the budget summary."
+    },
+    {
+        "speaker": "John",
+        "text": "We need to finalize the budget before the demo."
     }
 ]
