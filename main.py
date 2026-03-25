@@ -10,6 +10,7 @@ from src.preprocess import (
 from src.action_items import save_action_items
 from src.decisions import save_decisions
 from src.topics import segment_topics, save_topics
+from src.search import load_embedding_model, semantic_search
 
 
 def main() -> None:
@@ -66,6 +67,23 @@ def main() -> None:
                 print(f"   - {item['speaker']}: {item['text']}")
     else:
         print("No topics found.")
+
+    print("\n" + "=" * 60)
+    print("Semantic Search Results:\n")
+
+    query = "What was decided about the demo?"
+    print(f"Query: {query}\n")
+
+    model = load_embedding_model()
+    search_results = semantic_search(query, records, model, top_k=3)
+
+    if search_results:
+        for idx, result in enumerate(search_results, start=1):
+            print(f"{idx}. Speaker: {result['speaker']}")
+            print(f"   Text   : {result['text']}")
+            print(f"   Score  : {result['score']:.4f}")
+    else:
+        print("No relevant results found.")
 
     print("\n" + "=" * 60)
     print(f"Cleaned transcript saved to: {cleaned_output_file}")
