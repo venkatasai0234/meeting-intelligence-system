@@ -1,0 +1,9 @@
+spacy
+pandas
+scikit-learn
+sentence-transformers
+faiss-cpu
+fastapi
+uvicorn
+streamlit
+pytest
