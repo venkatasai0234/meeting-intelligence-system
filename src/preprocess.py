@@ -45,8 +45,6 @@ def split_transcript_lines(text: str) -> List[str]:
 def extract_action_items(lines: List[str]) -> List[str]:
     """
     Simple rule-based baseline for action item extraction.
-
-    Detects lines containing action-oriented phrases.
     """
     action_patterns = [
         r"\bi will\b",
@@ -66,3 +64,26 @@ def extract_action_items(lines: List[str]) -> List[str]:
             action_items.append(line)
 
     return action_items
+
+
+def extract_decisions(lines: List[str]) -> List[str]:
+    """
+    Simple rule-based baseline for decision extraction.
+    """
+    decision_patterns = [
+        r"\bdecided to\b",
+        r"\bagreed to\b",
+        r"\bwas finalized\b",
+        r"\bfinalized that\b",
+        r"\bconfirmed that\b",
+        r"\bapproved\b",
+    ]
+
+    decisions = []
+
+    for line in lines:
+        lowered_line = line.lower()
+        if any(re.search(pattern, lowered_line) for pattern in decision_patterns):
+            decisions.append(line)
+
+    return decisions
