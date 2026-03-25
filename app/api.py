@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile, File, HTTPException
 from pydantic import BaseModel
 
 from src.preprocess import (
@@ -23,21 +23,15 @@ class MeetingRequest(BaseModel):
     query: str = "What was decided about the demo?"
 
 
-@app.get("/")
-def root() -> dict:
-    return {"message": "Meeting Intelligence API is running"}
-
-
-@app.post("/analyze")
-def analyze_meeting(request: MeetingRequest) -> dict:
-    cleaned_transcript = clean_text(request.transcript)
+def run_pipeline(transcript: str, query: str) -> dict:
+    cleaned_transcript = clean_text(transcript)
     lines = split_transcript_lines(cleaned_transcript)
     records = parse_transcript_lines(lines)
 
     action_items = extract_action_items(records)
     decisions = extract_decisions(records)
     topics = segment_topics(records)
-    search_results = semantic_search(request.query, records, model, top_k=3)
+    search_results = semantic_search(query, records, model, top_k=3)
 
     output = build_meeting_output(
         action_items=action_items,
@@ -47,3 +41,27 @@ def analyze_meeting(request: MeetingRequest) -> dict:
     )
 
     return output
+
+
+@app.get("/")
+def root() -> dict:
+    return {"message": "Meeting Intelligence API is running"}
+
+
+@app.post("/analyze")
+def analyze_meeting(request: MeetingRequest) -> dict:
+    return run_pipeline(request.transcript, request.query)
+
+
+@app.post("/analyze-file")
+async def analyze_meeting_file(
+    file: UploadFile = File(...),
+    query: str = "What was decided about the demo?",
+) -> dict:
+    if not file.filename.endswith(".txt"):
+        raise HTTPException(status_code=400, detail="Only .txt files are supported.")
+
+    content = await file.read()
+    transcript = content.decode("utf-8")
+
+    return run_pipeline(transcript, query)
